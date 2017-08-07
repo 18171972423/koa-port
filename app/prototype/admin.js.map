@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/prototype/admin.js"],"names":["Admin"],"mappings":";;AAEqBA,K;AACjB,iBAAa;;AAEZ,C,mBAHgBA,K","file":"admin.js","sourcesContent":["\n\nexport default class Admin {\n    constructor(){\n        \n    }\n}"]}
