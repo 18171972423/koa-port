@@ -9,7 +9,8 @@ var _koaLogger = require('koa-logger');var _koaLogger2 = _interopRequireDefault(
 var _koaStaticPlus = require('koa-static-plus');var _koaStaticPlus2 = _interopRequireDefault(_koaStaticPlus);
 var _koaOnerror = require('koa-onerror');var _koaOnerror2 = _interopRequireDefault(_koaOnerror);
 var _config = require('./config');var _config2 = _interopRequireDefault(_config);
-var _db = require('./config/db');var _db2 = _interopRequireDefault(_db);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _db = require('./config/db');var _db2 = _interopRequireDefault(_db);
+var _koaSession = require('koa-session2');var _koaSession2 = _interopRequireDefault(_koaSession);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var app = new _koa2.default();
 var bodyparser = (0, _koaBodyparser2.default)();
@@ -18,6 +19,16 @@ var bodyparser = (0, _koaBodyparser2.default)();
 app.use((0, _koaConvert2.default)(bodyparser));
 app.use((0, _koaConvert2.default)((0, _koaJson2.default)()));
 app.use((0, _koaConvert2.default)((0, _koaLogger2.default)()));
+app.use((0, _koaSession2.default)({
+  key: "SESSIONID", //default "koa:sess"
+  cookie: { // 与 cookie 相关的配置
+    domain: 'localhost', // 写 cookie 所在的域名
+    path: '/', // 写 cookie 所在的路径
+    maxAge: 1000 * 30, // cookie 有效时长
+    httpOnly: true, // 是否只用于 http 请求中获取
+    overwrite: false // 是否允许重写
+  } }));
+
 
 // static
 app.use((0, _koaConvert2.default)((0, _koaStaticPlus2.default)(_path2.default.join(__dirname, '../public'), {
